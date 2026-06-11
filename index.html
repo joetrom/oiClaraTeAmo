@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>meu meu vc meu</title>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- SWAL2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+   <link rel="icon" href="./clara.png" type="image/png">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- Sounds -->
+  <audio id="hoverSound" src="./cartoonAssLaugh.wav" preload="auto"></audio>
+  <audio id="yesSound" src="./aplause.wav" preload="auto"></audio>
+
+  <div class="card">
+    <div class="emoji">🐱💜</div>
+    <h2>Olá, Padrão da Sociedade!<br>Quer namorar 2.0 comigo?</h2>
+
+    <div class="buttons">
+      <button id="yes">Sim 💜</button>
+      <button id="no" onclick="noBtnClick()">Não ☠️</button>
+      <div id="thoughtBubble" class="thought-bubble">
+        Desisto. Clica nessa porra então. 😒
+      </div>
+    </div>
+
+    <div class="hint">Você, <b>literalmente falando</b>, assinou um contrato comigo! <i>Nyeh Heh Heh!</i></div>
+  </div>
+
+  <script>
+    const mensagens = [
+      {
+        title: "Erro vindo do Usuário!",
+        text: "VOCÊ NÃO LEU A DICA, NÉ? VOCÊ ASSINOU UM CONTRATO COMIGO!"
+      },
+      {
+        title: "Erro vindo de Bobice!",
+        text: "Seu dedo escorregou, tenho certeza, mais cuidado viu?"
+      },
+      {
+        title: "Erro vindo de Brat Infeliz!",
+        text: "Eu sei pra onde isso vai, você sabe pra onde isso vai, então por favor, tenha certeza, vamo lá, mais cuidado viu?"
+      },
+      {
+        title: "Erro vindo de Rage Bait-Baby",
+        text: "Eu tive essa ideia dia 01/06 sentado no trabalho, e eu não vou deixar você estragar ela, então por favor, tenha certeza, vamo lá, mais cuidado viu?"
+      },
+      {
+        title: "Erro vindo de Rage Baiter mesmo",
+        text: "Que tal você apertar f5? Aí você pode tentar de novo, e dessa vez, tente clicar no botão certo, ok?"
+      },
+      {
+        title: "Erro vindo de Consulta Técnica",
+        text: "Se tu apertou f5 na passada você perdeu o progresso, mas se vc tá aqui acho que não..."
+      },
+      {
+        title: "Erro vindo de Persistência",
+        text: "Até o botão já desistiu..."
+      },
+      {
+        title: "Erro vindo de Persistência",
+        text: "Me diz quantas mensagens você acha que eu preparei pra isso"
+      },
+      {
+        title: "Erro vindo de Persistência",
+        text: "Me diz quantas mensagens você acha que eu preparei pra isso?"
+      },
+      {
+        title: "Erro vindo de INSISTÊNCIA",
+        text: "Tentei lhe enganar com a última, mas MEU DEUS."
+      },
+      {
+        title: "Erro vindo de Parabéns bebê",
+        text: "Hoje vai ser uma festa Bolo e guaraná Muito doce pra você É o seu aniversário Vamos festejar E os amigos receber Mil felicidades E amor no coração Que a sua vida seja Sempre doce e emoção Bate, bate palma Que é hora de cantar Agora todos juntos Vamos lá! Parabéns, parabéns! Hoje é o seu dia Que dia mais feliz Parabéns, parabéns! Cante novamente Que a gente pede bis É big, é big É big, é big, é big É hora, é hora É hora, é hora, é hora Rá-tim-bum!"
+      },
+      {
+        title: "Erro vindo de Salmo 23",
+        text: "O Senhor é o meu pastor, nada me faltará. Salmos 23:1"
+      },
+      {
+        title: "Erro vindo de Salmo 23 parte 2",
+        text: "Deitar-me faz em verdes pastos, guia-me mansamente a águas tranquilas. Salmos 23:2"
+      },
+      {
+        title: "Erro vindo de Recife",
+        text: "UGGGHHHHH, nunca mais clica por favo"
+      },
+      {
+        title: "Erro vindo de Cansei de criar mensagens",
+        text: "Eu te amo muito, adoro ver você rir, mas sério, para de clicar no botão errado, por favor! TE AMO!"
+      },
+    ];
+
+    let contador = 0;
+
+    function countTimer(timer) {
+      return (timer * (contador + 1) + 1000);
+    }
+
+    const meuSwal = Swal.mixin({
+      icon: "error",
+      confirmButtonText: "Não clicarei de novo!",
+      timer: countTimer(5000),
+      timerProgressBar: true,
+      buttonsStyling: false,
+      customClass: {
+        popup: "swal-tall",
+        confirmButton: "swal2-confirm",
+        title: "swal2-title",
+        actions: "swal2-actions"
+      },
+      didOpen: (popup) => {
+        popup.onmouseenter = Swal.stopTimer;
+        popup.onmouseleave = Swal.resumeTimer;
+      }
+    });
+
+    function noBtnClick() {
+      const mensagem =
+        mensagens[Math.min(contador, mensagens.length - 1)];
+
+      meuSwal.fire(mensagem);
+
+      contador++;
+    }
+  
+    
+    const yesSound = document.getElementById("yesSound");
+    const yesBtn = document.getElementById("yes");
+    yesBtn.addEventListener("click", () => {
+    yesSound.play();
+
+        confetti({
+        particleCount: 260,
+        spread: 120,
+        origin: { y: 0.65 }
+        });
+
+        setTimeout(() => {
+        Swal.fire({
+            title: "🎉🎉🎉OBAAAAA🎉AAA🎉AAAAAAAA 🎉PAW🎉 POW P🎉🎉EI 🎉🎉POW🎉🎉🎉 PAW PO🎉🎉W 🎉PEI🎉",
+            text: "Você é a melhor coisa que já me aconteceu, Maria Clara.",
+            icon: "success",
+            confirmButtonText: "Eu também te amo! 💜",
+            buttonsStyling: false,
+            customClass: {
+                popup: "swal-tall",
+                confirmButton: "swal2-confirm",
+                title: "swal2-title",
+                actions: "swal2-actions"
+            }
+        });
+        }, 1000);
+    });
+  </script>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
